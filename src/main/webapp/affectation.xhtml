@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+    <title>Employee Project Assignment</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <h:outputStylesheet />
+    <style type="text/css">
+        .btn {
+            margin: 20px;
+        }
+    </style>
+</h:head>
+
+<h:body>
+    <div class="container-md">
+        <div class="card" style="width: 500px;">
+            <div class="card-body">
+                <h3 class="card-title text-center">Employee Project Assignment</h3>
+                <h:form id="assignProjectForm">
+                    <div class="form-group">
+                        <h:outputLabel for="employeeId">Employee:</h:outputLabel>
+                        <h:selectOneMenu id="employeeId" class="form-control" name="employeeId" value="#{assignmentBean.employeeId}" required="true">
+                            <f:selectItems value="#{assignmentBean.employeeList}" var="emp" itemValue="#{emp.id}" itemLabel="#{emp.employeeName}" />
+                        </h:selectOneMenu>
+                        <h:message for="employeeId" style="color:red" />
+                    </div>
+
+                    <div class="form-group">
+                        <h:outputLabel for="projectId">Project:</h:outputLabel>
+                        <h:selectOneMenu id="projectId" class="form-control" name="projectId" value="#{assignmentBean.projectId}" required="true">
+                            <f:selectItems value="#{assignmentBean.projectList}" var="proj" itemValue="#{proj.id}" itemLabel="#{proj.projectName}" />
+                        </h:selectOneMenu>
+                        <h:message for="projectId" style="color:red" />
+                    </div>
+
+                    <div class="form-group">
+                        <h:outputLabel for="implication">Implication Percentage:</h:outputLabel>
+                        <h:inputText id="implication" class="form-control" name="implication" value="#{assignmentBean.implication}" required="true">
+                            <f:validateLongRange minimum="0" maximum="100" />
+                        </h:inputText>
+                        <h:message for="implication" style="color:red" />
+                    </div>
+
+                    <div class="form-group text-center">
+                        <h:commandButton styleClass="btn btn-outline-success" value="Assign Project" action="#{assignmentBean.assignProject}" />
+                    </div>
+                </h:form>
+            </div>
+        </div>
+    </div>
+</h:body>
+
+</html>
+

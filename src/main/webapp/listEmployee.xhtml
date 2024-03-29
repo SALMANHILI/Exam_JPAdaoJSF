@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+    <title> employee</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <h:outputStylesheet />
+    <style type="">
+        .btn{
+            margin: 20px;
+        }
+    </style>
+</h:head>
+
+<h:body>
+    <h:form>
+        <h:commandButton styleClass="btn btn-outline-warning" value="English" action="#{localeBean.changeLocale('en')}" />
+        <h:commandButton  styleClass="btn btn-outline-dark " value="French" action="#{localeBean.changeLocale('fr')}" />
+    </h:form>
+    <div class="container mt-5">
+        <h2 class="mb-4">List</h2>
+        <h:form id="EmployesForm">
+            <h:dataTable value="#{employeBean.employes}" var="employe" class="table table-striped">
+
+                <h:column>
+                    <f:facet name="header">nom</f:facet>
+                    <h:outputText value="#{employe.nom}" rendered="#{not employeBean.editModes[employe.id]}" />
+                    <h:inputText value="#{employe.nom}" rendered="#{employeBean.editModes[employe.id]}" />
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">email</f:facet>
+                    <h:outputText value="#{employe.email}" rendered="#{not employeBean.editModes[employe.id]}" />
+                    <h:inputText value="#{employe.email}" rendered="#{employeBean.editModes[employe.id]}" />
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Action</f:facet>
+                    <h:commandButton styleClass="btn btn-outline-primary" action="#{employeBean.toggleEditMode(employe)}" value="#{edit}" rendered="#{not employeBean.editModes[employe.id]}" />
+                    <h:commandButton styleClass="btn btn-outline-success" action="#{employeBean.updateEmploye(employe)}" value="#{save}" rendered="#{employeBean.editModes[employe.id]}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">delete</f:facet>
+                    <h:commandButton styleClass="btn btn-outline-danger" action="#{employeBean.deleteEmploye(employe.id)}" value="#{delete}" />
+                </h:column>
+            </h:dataTable>
+            <h:commandButton id="createBtn" styleClass="btn btn-outline-info"  value="#{create_new_Employe}" action="#{employeBean.showCode}" />
+        </h:form>
+    </div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" type=""></script>
+</h:body>
+</html>
